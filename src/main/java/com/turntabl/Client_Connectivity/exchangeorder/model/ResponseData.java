@@ -32,4 +32,13 @@ public class ResponseData {
     public void setData(Data data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseData{" +
+                "status_code=" + status_code +
+                ", message='" + message + '\'' +
+                ", data=" + data.toString() +
+                '}';
+    }
 }

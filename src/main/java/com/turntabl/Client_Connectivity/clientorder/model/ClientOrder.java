@@ -141,4 +141,19 @@ public class ClientOrder implements Serializable {
         this.portfolio.addClientOrder(this);
     }
 
+    @Override
+    public String toString() {
+        return "ClientOrder{" +
+                "clientOrderId=" + clientOrderId +
+                ", portfolio=" + portfolio +
+                ", product='" + product + '\'' +
+                ", quantity=" + quantity +
+                ", side=" + side +
+                ", price=" + price +
+                ", algorithm='" + algorithm + '\'' +
+                ", state=" + state +
+                ", status=" + status +
+                ", exchangeOrder=" + exchangeOrder +
+                '}';
+    }
 }

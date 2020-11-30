@@ -11,6 +11,7 @@ import com.turntabl.Client_Connectivity.exchangeorder.model.ResponseData;
 import com.turntabl.Client_Connectivity.portfolio.doa.PortfolioDao;
 import com.turntabl.Client_Connectivity.portfolio.model.Portfolio;
 import com.turntabl.Client_Connectivity.portfolio.model.PortfolioListResponse;
+import com.turntabl.Client_Connectivity.reporting.ClientServicePublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,9 @@ public class ClientOrderController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ClientServicePublisher clientServicePublisher;
 
     public ClientOrderController(ClientOrderDao order, PortfolioDao portfolioDao) {
         this.order = order;
@@ -153,6 +157,8 @@ public class ClientOrderController {
 
                 exchangeOrderDao.save(exchangeOrder);
 
+
+
                 clientOrderData.setStatus(clientOrder.getStatus().toString());
                 clientOrderData.setState(clientOrder.getState().toString());
                 clientOrderData.setSide(clientOrder.getSide().toString());
@@ -170,10 +176,15 @@ public class ClientOrderController {
                 responseData.setMessage("Order sent");
                 responseData.setStatus_code(HttpStatus.CREATED.value());
 
+
+                clientServicePublisher.publish(responseData.toString());
+
                 break;
             case("invalid"):
                 responseData.setMessage("Invalid Order");
                 responseData.setStatus_code(HttpStatus.FORBIDDEN.value());
+
+                clientServicePublisher.publish(responseData.toString());
                 break;
         }
 

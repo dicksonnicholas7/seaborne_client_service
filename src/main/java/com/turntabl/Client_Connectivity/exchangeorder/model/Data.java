@@ -34,4 +34,13 @@ public class Data {
     public void setClientOrder(ClientOrderData clientOrder) {
         this.clientOrder = clientOrder;
     }
+
+    @Override
+    public String toString() {
+        return "Data{" +
+                "userId=" + userId +
+                ", portfolioId=" + portfolioId +
+                ", clientOrder=" + clientOrder +
+                '}';
+    }
 }
